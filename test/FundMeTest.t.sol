@@ -13,4 +13,12 @@ contract FundMeTest is Test {
     function testMinimumDollarIsFive() public {
         assertEq(fundme.MINIMUM_USD(), 5e18);
     }
+
+    function testOwnerIsMsgSender() public{
+        // why address(this)?
+        // because setup is the one initialize FundMe, not the msg.Sender
+        // so if we tried to compare owner by msg.Sender(), it will be wrong
+        address msgSender = address(this);
+        assertEq(fundme.i_owner(), msgSender);
+    }
 }
